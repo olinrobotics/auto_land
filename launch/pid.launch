@@ -1,0 +1,27 @@
+<launch>
+    <node name="landing_pid_x" pkg="pid" type="controller" output="screen">
+        <param name="Kp" value="0.5" />
+        <param name="Ki" value="0.1" />
+        <param name="Kd" value="0.1" />
+        <param name="upper_limit" value="1" />
+        <param name="lower_limit" value="-1" />
+        <param name="windup_limit" value="1" />
+        <param name="max_loop_frequency" value="30.0" />
+        <param name="min_loop_frequency" value="30.0" />
+        <param name="topic_from_controller" value="control_x" />
+        <param name="topic_from_plant" value="state_x" />
+    </node>
+
+    <node name="landing_pid_y" pkg="pid" type="controller" output="screen">
+        <param name="Kp" value="-0.5" />
+        <param name="Ki" value="-0.1" />
+        <param name="Kd" value="-0.1" />
+        <param name="upper_limit" value="1" />
+        <param name="lower_limit" value="-1" />
+        <param name="windup_limit" value="1" />
+        <param name="max_loop_frequency" value="30.0" />
+        <param name="min_loop_frequency" value="30.0" />
+        <param name="topic_from_controller" value="control_y" />
+        <param name="topic_from_plant" value="state_y" />
+    </node>
+</launch>
