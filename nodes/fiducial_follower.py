@@ -7,7 +7,7 @@ from std_msgs.msg import Float64, Bool
 from geometry_msgs.msg import Twist
 
 from dynamic_reconfigure.server import Server #for PID tuning
-from multirotors.cfg import PIDConfig
+from auto_land.cfg import PIDConfig
 
 """
 This is the main file for target tracking:
