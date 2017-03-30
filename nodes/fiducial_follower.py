@@ -17,7 +17,7 @@ This is the main file for target tracking:
     The output is a geometry_msgs/Twist on the cmd_vel topic
 """
 
-BASE_FRAME = '/camera'
+BASE_FRAME = '/fcu_utm'
 TARGET_FRAME = '/target'
 
 class TargetTracker():

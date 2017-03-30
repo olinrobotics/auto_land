@@ -1,0 +1,4 @@
+<launch>
+  <node pkg='auto_land' type='test_airframe_tf.py' name='air_tf'/>
+  <node pkg='auto_land' type='test_target_tf.py' name='target_tf'/>
+</launch>

@@ -1,0 +1,8 @@
+<launch>
+
+  <node pkg='auto_land' type='fiducial_follower.py' name='fiducial_follower'/>
+
+  <include file='$(find auto_land)/launch/pid.launch'/>
+
+  <!-- add node for sending commands to pixhawk -->
+</launch>
