@@ -18,7 +18,7 @@ class tf_camera_mngr:
         self.listener = tf.TransformListener()
         self.broadcaster = tf.TransformBroadcaster()
 
-        self.listener.waitForTransform(world, target_raw, rospy.Time(), rospy.Duration(5.0))
+        self.listener.waitForTransform(world, target_raw, rospy.Time(), rospy.Duration(60.0))
 
     def update(self):
         self.listener.waitForTransform(world, target_raw, rospy.Time(), rospy.Duration(2.0))       

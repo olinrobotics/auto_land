@@ -20,8 +20,8 @@
 
     <!-- Describe the tags -->
     <rosparam param="tag_descriptions">[
-      {id: 11, size: 0.0163513, frame_id: target},
-      {id: 18, size: 0.163513, frame_id: target}]
+      {id: 11, size: 0.0163513, frame_id: target_raw},
+      {id: 18, size: 0.163513, frame_id: target_raw}]
     </rosparam>
   </node>
 </launch>
