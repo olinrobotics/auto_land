@@ -4,7 +4,7 @@ import rospy
 import tf
 #from apriltags_ros.msg import AprilTagDetectionArray
 from std_msgs.msg import Float64, Bool
-from geometry_msgs.msg import Twist
+from geometry_msgs.msg import TwistStamped
 
 from dynamic_reconfigure.server import Server #for PID tuning
 from auto_land.cfg import PIDConfig
@@ -17,8 +17,10 @@ This is the main file for target tracking:
     The output is a geometry_msgs/Twist on the cmd_vel topic
 """
 
-BASE_FRAME = '/fcu_utm'
+BASE_FRAME = '/camera'
 TARGET_FRAME = '/target'
+
+MAX_SPEED = 3 # max speed of drone m/s (applied separately in x and y)
 
 class TargetTracker():
     def __init__(self):
@@ -45,7 +47,7 @@ class TargetTracker():
 
         """Publishers"""
         #cmd ouput
-        self.pub_cmd = rospy.Publisher('/cmd_vel',Twist, queue_size=0)
+        self.pub_cmd = rospy.Publisher('/mavros/setpoint_velocity/cmd_vel',TwistStamped, queue_size=0)
         #PID publishers
         self.pub_state_x = rospy.Publisher('/state_x', Float64, queue_size=10)
         self.pub_state_y = rospy.Publisher('/state_y', Float64, queue_size=10)
@@ -88,9 +90,9 @@ class TargetTracker():
 
     """ Executes the control algorithms """
     def send_cmd(self):
-        output = Twist()
-        output.linear.x=self.control_x
-        output.linear.y=self.control_y
+        output = TwistStamped()
+        output.twist.linear.x=self.control_x
+        output.twist.linear.y=self.control_y
 
         self.pub_cmd.publish(output)
 
@@ -114,11 +116,11 @@ class TargetTracker():
     """ Callback function for the contorl signals """
     def control_x_callback(self, data):
         self.control_x = data.data*self.x_dir
-        self.control_x = self.bound(self.control_x, -1, 1)
+        self.control_x = self.bound(self.control_x, -1, 1)*MAX_SPEED
 
     def control_y_callback(self, data):
         self.control_y = data.data*self.y_dir
-        self.control_y = self.bound(self.control_y, -1, 1)
+        self.control_y = self.bound(self.control_y, -1, 1)*MAX_SPEED
 
     def bound(self, x, lower, upper):
         if x < lower:

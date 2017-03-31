@@ -1,0 +1,12 @@
+<launch>
+  <arg name='port' default='/dev/ttyACM0'/>
+  <!--include file='$(find auto_land)/launch/apm2.launch'>
+    <param name='fcu_url' value='$(arg port)' />
+  </include-->
+
+  <node pkg='cv_camera' type='cv_camera_node' name='cv_camera'/>
+
+  <include file='$(find auto_land)/launch/detector.launch'/>
+
+  <include file='$(find auto_land)/launch/tf_manager.launch'/>
+</launch>

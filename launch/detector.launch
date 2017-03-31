@@ -1,6 +1,6 @@
 <launch>
-  <arg name="cam_namespace" default="camera"/>
-  <arg name="image" default="image_rect"/>
+  <arg name="cam_namespace" default="cv_camera"/>
+  <arg name="image" default="image_raw"/>
   <arg name="image_transport" default="raw"/>
 
   <node pkg="apriltags_ros" type="apriltag_detector_node" name="apriltag_detector" output="screen">
