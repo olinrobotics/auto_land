@@ -21,8 +21,6 @@ class tf_camera_mngr:
         self.listener.waitForTransform(world, target_raw, rospy.Time(), rospy.Duration(60.0))
 
     def update(self):
-        self.listener.waitForTransform(world, target_raw, rospy.Time(), rospy.Duration(2.0))       
-        
         now = rospy.Time.now()
 
         err = False
