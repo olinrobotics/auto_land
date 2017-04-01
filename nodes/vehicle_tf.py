@@ -7,6 +7,7 @@ import geometry_msgs.msg
 
 world = "/local_origin"
 airframe = "/fcu_utm"
+airframe_aligned = "/fcu_aligned"
 camera = "/camera"
 
 class tf_camera_mngr:
@@ -32,20 +33,20 @@ class tf_camera_mngr:
             return
         
         euler_fcu = tf.transformations.euler_from_quaternion(rot)
-        """ #This should work, but it's not working on this test
-        quat_cam = tf.transformations.quaternion_from_euler(-euler_fcu[0], -euler_fcu[1], 0)
-        self.broadcaster.sendTransform((0, 0, 0),
-                     quat_cam,
-                     now,
-                     camera,
-                     airframe)
-        """
-        # this is a little sketcy because it doesn't directly tie the camera to the airframe
+        
+        #transform from world to camera
         quat_cam = tf.transformations.quaternion_from_euler(math.pi, 0, euler_fcu[2])
+        
         self.broadcaster.sendTransform(trans,
                      quat_cam,
                      now,
                      camera,
+                     world)
+        
+        self.broadcaster.sendTransform(trans,
+                     (0, 0, 0, 1),
+                     now,
+                     airframe_aligned,
                      world)
         
 

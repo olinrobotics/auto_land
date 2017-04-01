@@ -25,7 +25,7 @@ class tf_camera_mngr:
         
         quat_fcu = tf.transformations.quaternion_from_euler(
                 (random.random()-0.5), (random.random()-0.5), random.random())
-        self.broadcaster.sendTransform((1, random.random()*.5, 2),
+        self.broadcaster.sendTransform((1+random.random()*.5, random.random()*.5, 2),
                      quat_fcu,
                      now,
                      airframe,

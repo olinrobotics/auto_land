@@ -17,7 +17,7 @@ This is the main file for target tracking:
     The output is a geometry_msgs/Twist on the cmd_vel topic
 """
 
-BASE_FRAME = '/camera'
+BASE_FRAME = '/fcu_aligned'
 TARGET_FRAME = '/target'
 
 MAX_SPEED = 3 # max speed of drone m/s (applied separately in x and y)

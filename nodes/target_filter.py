@@ -6,7 +6,7 @@ import tf
 import geometry_msgs.msg
 
 world = "/local_origin"
-airframe = "/fcu_utm"
+#airframe = "/fcu_utm"
 camera = "/camera"
 target_raw = "/target_raw"
 target_filtered = "/target"
@@ -18,7 +18,14 @@ class tf_camera_mngr:
         self.listener = tf.TransformListener()
         self.broadcaster = tf.TransformBroadcaster()
 
-        self.listener.waitForTransform(world, target_raw, rospy.Time(), rospy.Duration(60.0))
+        saw_target = False
+        while not saw_target:
+            try:
+                self.listener.waitForTransform(world, target_raw, 
+                    rospy.Time(), rospy.Duration(60.0))
+            except:
+                continue
+            saw_target = True
 
     def update(self):
         now = rospy.Time.now()
@@ -30,6 +37,7 @@ class tf_camera_mngr:
             err = True
         
         if  err:
+            print 'err'
             return
         
         euler_fcu = tf.transformations.euler_from_quaternion(rot)
